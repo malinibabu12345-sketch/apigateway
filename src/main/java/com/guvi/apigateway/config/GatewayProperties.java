@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "gateway.rate-limit")
 public class GatewayProperties {
-
     private int maxTokens;
     private int refillRate;
 
