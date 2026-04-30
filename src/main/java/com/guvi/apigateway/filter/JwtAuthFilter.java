@@ -29,10 +29,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String path = request.getRequestURI();
         if (path.startsWith("/api/auth")
-                || path.contains("/swagger-ui")
-                || path.contains("/v3/api-docs")
-                || path.contains("/swagger-resources")
-                || path.contains("/webjars")) {
+                || path.startsWith("/swagger-ui")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-resources")
+                || path.startsWith("/webjars")
+                || path.equals("/swagger-ui.html")) {
 
             filterChain.doFilter(request, response);
             return;
