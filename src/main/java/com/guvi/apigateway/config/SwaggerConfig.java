@@ -12,22 +12,18 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
     @Bean
     public OpenAPI apiInfo() {
-
         return new OpenAPI()
                 .info(new Info()
                         .title("API Gateway")
                         .description("Rate Limiter + API Gateway Project")
                         .version("1.0"))
-
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth",
-                                new SecurityScheme()
-                                        .name("bearerAuth")
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("bearer")
-                                        .bearerFormat("JWT")
-                        ));
+                        new SecurityScheme()
+                                .name("bearerAuth")
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")));
     }
 }

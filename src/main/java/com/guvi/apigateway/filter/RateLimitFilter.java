@@ -14,7 +14,6 @@ import java.io.IOException;
 @Component
 @Order(2)
 public class RateLimitFilter extends OncePerRequestFilter {
-
     private final RateLimitService rateLimitService;
     private final LoggingService loggingService;
 
@@ -29,7 +28,6 @@ public class RateLimitFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-
         String path = request.getRequestURI();
         if (path.contains("/swagger-ui")
                 || path.contains("/v3/api-docs")
@@ -42,15 +40,12 @@ public class RateLimitFilter extends OncePerRequestFilter {
         }
 
         String user = (String) request.getAttribute("userEmail");
-
         if (user == null) {
             user = request.getRemoteAddr();
         }
-
         boolean allowed = rateLimitService.allowRequest(user);
 
         if (!allowed) {
-
             String userEmail = (String) request.getAttribute("userEmail");
             if (userEmail == null) userEmail = "anonymous";
             loggingService.log(
@@ -58,22 +53,16 @@ public class RateLimitFilter extends OncePerRequestFilter {
                     request.getRemoteAddr(),
                     request.getRequestURI(),
                     request.getMethod(),
-                    429,
-                    0,
-                    true
-            );
-
+                    429, 0,
+                    true);
             response.setStatus(429);
             response.setContentType("application/json");
             response.getWriter().write(
                     "{\"success\":false,\"message\":\"Too Many " +
-                            "Requests - Rate limit exceeded\"}"
-            );
+                            "Requests - Rate limit exceeded\"}");
             return;
         }
-
         filterChain.doFilter(request, response);
-
     }
 }
 

@@ -9,22 +9,14 @@ import java.time.LocalDateTime;
 public class ApiLog {
 
     @Id
-    private String id;
-
+    private String id;  //(Id)
     private String userEmail;
-
     private String ipAddress;
-
     private String endpoint;
-
     private String httpMethod;
-
     private int responseStatus;
-
     private long responseTimeMs;
-
     private boolean rateLimitViolation;
-
     private LocalDateTime timestamp;
 
     public ApiLog() {}

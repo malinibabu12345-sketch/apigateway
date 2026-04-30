@@ -19,19 +19,15 @@ import java.util.ArrayList;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
-
     public JwtAuthFilter(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse
+                                            response, FilterChain filterChain)
             throws ServletException, IOException {
-
         String path = request.getRequestURI();
-
         if (path.startsWith("/api/auth")
                 || path.contains("/swagger-ui")
                 || path.contains("/v3/api-docs")
@@ -41,35 +37,28 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
         String header = request.getHeader("Authorization");
-
         if (header == null || !header.startsWith("Bearer ")) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");
             response.getWriter().write(
-                    "{\"success\":false,\"message\":\"Missing or invalid Authorization header\"}"
-            );
+                    "{\"success\":false,\"message\":\"Missing or invalid Authorization header\"}");
             return;
         }
 
         String token = header.substring(7);
-
         if (!jwtUtil.isValid(token)) {
             response.setStatus(401);
             response.setContentType("application/json");
             response.getWriter().write(
-                    "{\"success\":false,\"message\":\"Invalid or expired token\"}"
-            );
+                    "{\"success\":false,\"message\":\"Invalid or expired token\"}");
             return;
         }
 
         String email = jwtUtil.extractEmail(token);
         UsernamePasswordAuthenticationToken auth =
                 new UsernamePasswordAuthenticationToken(
-                        email, null, new ArrayList<>()
-                );
-
+                        email, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(auth);
         request.setAttribute("userEmail", email);
 

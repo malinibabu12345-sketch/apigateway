@@ -16,35 +16,27 @@ import java.util.List;
 public class MonitoringController {
 
     private final ApiLogRepository repository;
-
     public MonitoringController(ApiLogRepository repository) {
         this.repository = repository;
     }
 
     @GetMapping("/logs/user")
     public ApiResponse getLogsByUser(@RequestParam String email) {
-
         List<ApiLog> logs = repository.findByUserEmailOrderByTimestampDesc(email);
-
         return new ApiResponse(true, "Logs fetched", logs);
     }
 
     @GetMapping("/logs/recent")
     public ApiResponse getRecentLogs(@RequestParam int minutes) {
-
         LocalDateTime time = LocalDateTime.now().minusMinutes(minutes);
-
         List<ApiLog> logs = repository.findByTimestampAfterOrderByTimestampDesc(time);
-
         return new ApiResponse(true, "Recent logs fetched", logs);
     }
 
     @GetMapping("/logs/violations")
     public ApiResponse getViolations() {
-
         List<ApiLog> logs = repository.
                 findByRateLimitViolationTrueOrderByTimestampDesc();
-
         return new ApiResponse(true, "Rate limit violations", logs);
     }
 }

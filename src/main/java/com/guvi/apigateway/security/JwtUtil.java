@@ -21,7 +21,6 @@ public class JwtUtil {
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
-
     public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
@@ -34,7 +33,6 @@ public class JwtUtil {
     public String extractEmail(String token) {
         return parseClaims(token).getSubject();
     }
-
     public boolean isValid(String token) {
         try {
             return !isTokenExpired(token);
@@ -42,7 +40,6 @@ public class JwtUtil {
             return false;
         }
     }
-
     public boolean isTokenExpired(String token) {
         return parseClaims(token).getExpiration().before(new Date());
     }

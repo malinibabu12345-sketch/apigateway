@@ -8,15 +8,13 @@ import java.util.Map;
 @Service
 public class GatewayRoutingService {
     public Map<String, Object> route(String service, String userEmail) {
-
         return switch (service) {
             case "service-a" -> serviceAHello(userEmail);
             case "service-b" -> serviceBData(userEmail);
             default -> Map.of(
                     "service", "unknown",
                     "message", "Invalid service",
-                    "timestamp", LocalDateTime.now().toString());
-        };
+                    "timestamp", LocalDateTime.now().toString()); };
     }
 
     public Map<String, Object> serviceAHello(String userEmail) {

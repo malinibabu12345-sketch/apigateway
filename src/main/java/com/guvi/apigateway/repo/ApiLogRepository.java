@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ApiLogRepository extends MongoRepository<ApiLog, String> {
-
     List<ApiLog> findByUserEmailOrderByTimestampDesc(String userEmail);
 
     List<ApiLog> findByTimestampAfterOrderByTimestampDesc(LocalDateTime after);

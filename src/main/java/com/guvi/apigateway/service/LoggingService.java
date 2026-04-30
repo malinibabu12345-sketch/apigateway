@@ -15,13 +15,10 @@ public class LoggingService {
     }
 
     public void log(String userEmail,
-                    String ip,
-                    String endpoint,
+                    String ip, String endpoint,
                     String method,
-                    int status,
-                    long time,
+                    int status, long time,
                     boolean rateLimitViolation) {
-
         ApiLog log = new ApiLog();
         log.setUserEmail(userEmail);
         log.setIpAddress(ip);

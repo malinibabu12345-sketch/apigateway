@@ -14,15 +14,11 @@ public class RateLimitEntry {
 
     @Indexed
     private String key;
-
     private int tokens;
-
     private int maxTokens;
-
     private LocalDateTime lastRefillTime;
 
     public RateLimitEntry() {}
-
     public RateLimitEntry(String key, int tokens, int maxTokens,
                           LocalDateTime lastRefillTime) {
         this.key = key;

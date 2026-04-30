@@ -5,8 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface RateLimitRepository extends MongoRepository
-        <RateLimitEntry, String> {
-    Optional<RateLimitEntry> findByKey(String key);
+public interface RateLimitRepository extends MongoRepository<RateLimitEntry, String> {
 
+    Optional<RateLimitEntry> findByKey(String key);
 }

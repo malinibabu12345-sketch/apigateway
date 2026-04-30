@@ -23,17 +23,13 @@ public class AuthController {
 
     @PostMapping("/register")
     public ApiResponse register(@Valid @RequestBody RegisterRequest request) {
-
         String message = authService.register(request);
-
         return new ApiResponse(true, message, null);
     }
 
     @PostMapping("/login")
     public ApiResponse login(@Valid @RequestBody LoginRequest request) {
-
         AuthResponse response = authService.login(request);
-
         return new ApiResponse(true, "Login successful", response);
     }
 }

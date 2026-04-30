@@ -19,36 +19,27 @@ public class RateLimitServiceTest {
 
     @Mock
     private RateLimitRepository repository;
-
     @InjectMocks
     private RateLimitService service;
-
     @Test
     void testAllowRequest_whenTokensAvailable() {
 
         RateLimitEntry entry = new RateLimitEntry(
-                "user", 5, 10, LocalDateTime.now()
-        );
-
+                "user", 5, 10, LocalDateTime.now());
         when(repository.findByKey("user")).thenReturn(Optional.of(entry));
 
         boolean result = service.allowRequest("user");
-
         assertTrue(result);
         verify(repository).save(any(RateLimitEntry.class));
     }
 
     @Test
     void testBlockRequest_whenNoTokens() {
-
         RateLimitEntry entry = new RateLimitEntry(
-                "user", 0, 10, LocalDateTime.now()
-        );
-
+                "user", 0, 10, LocalDateTime.now());
         when(repository.findByKey("user")).thenReturn(Optional.of(entry));
 
         boolean result = service.allowRequest("user");
-
         assertFalse(result);
         verify(repository).save(any(RateLimitEntry.class));
     }

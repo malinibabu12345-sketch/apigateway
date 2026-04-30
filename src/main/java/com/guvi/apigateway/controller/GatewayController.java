@@ -15,7 +15,6 @@ import java.util.Map;
 public class GatewayController {
 
     private final GatewayRoutingService routingService;
-
     public GatewayController(GatewayRoutingService routingService) {
         this.routingService = routingService;
     }
@@ -25,9 +24,9 @@ public class GatewayController {
                              HttpServletRequest request) {
 
         String user = (String) request.getAttribute("userEmail");
-
         Map<String, Object> result = routingService.route(service, user);
 
-        return new ApiResponse(true, "Request routed successfully", result);
+        return new ApiResponse(true, "Request routed successfully",
+                result);
     }
 }

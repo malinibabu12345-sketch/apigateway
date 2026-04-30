@@ -16,23 +16,18 @@ import java.io.IOException;
 public class LoggingFilter extends OncePerRequestFilter {
 
     private final LoggingService loggingService;
-
     public LoggingFilter(LoggingService loggingService) {
         this.loggingService = loggingService;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse
+                                            response, FilterChain filterChain)
             throws ServletException, IOException {
-
         long start = System.currentTimeMillis();
-
         filterChain.doFilter(request, response);
 
         long duration = System.currentTimeMillis() - start;
-
         String user = (String) request.getAttribute("userEmail");
         if (user == null) user = "anonymous";
 
@@ -43,7 +38,6 @@ public class LoggingFilter extends OncePerRequestFilter {
                 request.getMethod(),
                 response.getStatus(),
                 duration,
-                response.getStatus() == 429
-        );
+                response.getStatus() == 429);
     }
 }
