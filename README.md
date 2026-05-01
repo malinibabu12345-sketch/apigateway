@@ -175,13 +175,13 @@ https://your-deployment.com/swagger-ui/index.html
 
 apigateway/
 │
-├── config/                                          # SecurityConfig, SwaggerConfig, GatewayProperties
-├── filter/                                          # JwtAuthFilter, RateLimitFilter, LoggingFilter
-├── security/                                        # JwtUtil
-├── dto/                                             # AuthResponse, ApiResponse, LoginRequest, RegisterRequest
-├── exception/                                       # CustomException, GlobalExceptionHandler
-├── controller/                                      # AuthController, GatewayController, MonitoringController
-├── service/                                         # AuthService, GatewayRoutingService, RateLimitService, LoggingService
-├── repo/                                            # UserRepository, RateLimitRepository, ApiLogRepository
-├── model/                                           # User, RateLimitEntry, ApiLog
+├── config/                                          
+├── filter/                                         
+├── security/                                        
+├── dto/                                            
+├── exception/                                      
+├── controller/                                    
+├── service/                                         
+├── repo/                                           
+├── model/                               
 
