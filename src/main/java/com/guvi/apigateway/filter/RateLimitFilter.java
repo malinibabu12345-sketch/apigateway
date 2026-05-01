@@ -29,8 +29,6 @@ public class RateLimitFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        System.out.println("RATE LIMIT FILTER HIT: " + request.getRequestURI()); //
-
         String path = request.getRequestURI();
         if (path.startsWith("/swagger-ui")
                 || path.startsWith("/v3/api-docs")
@@ -47,8 +45,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
         if (user == null) {
             user = request.getRemoteAddr();
         }
-        //boolean allowed = rateLimitService.allowRequest(user);
-        boolean allowed = false;                                    //
+        boolean allowed = rateLimitService.allowRequest(user);
 
         if (!allowed) {
             String userEmail = (String) request.getAttribute("userEmail");
