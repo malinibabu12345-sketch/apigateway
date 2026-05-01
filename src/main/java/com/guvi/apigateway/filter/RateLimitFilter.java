@@ -28,22 +28,27 @@ public class RateLimitFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
+
+        System.out.println("RATE LIMIT FILTER HIT: " + request.getRequestURI()); //
+
         String path = request.getRequestURI();
-        if (path.contains("/swagger-ui")
-                || path.contains("/v3/api-docs")
-                || path.contains("/swagger-resources")
-                || path.contains("/webjars")
-                || path.contains("/api/monitor")) {
+        if (path.startsWith("/swagger-ui")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-resources")
+                || path.startsWith("/webjars")
+                || path.startsWith("/api/auth")) {
 
             filterChain.doFilter(request, response);
             return;
+
         }
 
         String user = (String) request.getAttribute("userEmail");
         if (user == null) {
             user = request.getRemoteAddr();
         }
-        boolean allowed = rateLimitService.allowRequest(user);
+        //boolean allowed = rateLimitService.allowRequest(user);
+        boolean allowed = false;                                    //
 
         if (!allowed) {
             String userEmail = (String) request.getAttribute("userEmail");
